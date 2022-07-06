@@ -1,16 +1,25 @@
-import React from 'react';
-import Link from 'next/link';
+import React, { Component } from 'react';
+import { withRouter } from 'next/router';
 
-function Home() {
-    return(
-        <div>
-            Visit the {' '}
-            <Link href='/about' prefetch>
-                <a>/about</a>
-            </Link>
-            {' '} page
-        </div>
-    )
+class Home extends Component {
+    componentDidMount () {
+        const { router } = this.props;
+        router.prefetch('/about');
+    }
+
+    render () {
+        const { router } = this.props;
+
+        return(
+            <div>
+                Visit the {' '}
+                <span onClick={() => router.push('/about')}>
+                    /about
+                </span>
+                {' '} page
+            </div>
+        )
+    }
 }
 
-export default Home;
+export default withRouter(Home);
