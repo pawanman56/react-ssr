@@ -12,9 +12,8 @@
 /build
 
 # next
-/.next
-/.next/cache
-/.swc
+.next
+.swc
 
 # misc
 .DS_Store
