@@ -1,25 +1,28 @@
 import React, { Component } from 'react';
-import { withRouter } from 'next/router';
+import Posts from '../components/Posts';
 
 class Home extends Component {
+    state = {
+        posts: []
+    };
+
     componentDidMount () {
-        const { router } = this.props;
-        router.prefetch('/about');
+        fetch('https://jsonplaceholder.typicode.com/posts')
+            .then(postsResponse => postsResponse.json())
+            .then((posts) => {
+                this.setState({ posts })
+            });
     }
 
     render () {
-        const { router } = this.props;
+        const { posts } = this.state;
 
         return(
             <div>
-                Visit the {' '}
-                <span onClick={() => router.push('/about')}>
-                    /about
-                </span>
-                {' '} page
+                <Posts posts={posts} />
             </div>
         )
     }
 }
 
-export default withRouter(Home);
+export default Home;
