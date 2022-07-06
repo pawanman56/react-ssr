@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
+import fetch from 'isomorphic-unfetch';
 import Posts from '../components/Posts';
 
 class Home extends Component {
-    static getInitialProps () {
-        return fetch('https://jsonplaceholder.typicode.com/posts')
-            .then(postsResponse => postsResponse.json())
-            .then((posts) => {
-                return { posts }
-            });
+    static async getInitialProps () {
+        const postsReponse = await fetch('https://jsonplaceholder.typicode.com/posts');
+        const posts = await  postsReponse.json();
+
+        return { posts }
     }
 
     render () {
