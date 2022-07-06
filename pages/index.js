@@ -2,20 +2,16 @@ import React, { Component } from 'react';
 import Posts from '../components/Posts';
 
 class Home extends Component {
-    state = {
-        posts: []
-    };
-
-    componentDidMount () {
-        fetch('https://jsonplaceholder.typicode.com/posts')
+    static getInitialProps () {
+        return fetch('https://jsonplaceholder.typicode.com/posts')
             .then(postsResponse => postsResponse.json())
             .then((posts) => {
-                this.setState({ posts })
+                return { posts }
             });
     }
 
     render () {
-        const { posts } = this.state;
+        const { posts } = this.props;
 
         return(
             <div>
